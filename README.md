@@ -4,7 +4,7 @@ This is a simple e-commerce application. It has been built with service-oriented
 
 - The Client - a `react` app which is what users see
 - The API - an `apollo-graphql engine` server which is responsible for data and images
-- The Webserver -  an `nginx` server responsible for routing requests to either the `client` or the `api` depending on the route
+- The Webserver - an `nginx` server responsible for routing requests to either the `client` or the `api` depending on the route
 
 **_Because this is a simple application, `json` files are used as the datasource as opposed to a real database server such as MySQL or MongoDB..._**
 
@@ -57,7 +57,5 @@ By default, one admin user and one regular user are available. Please see their 
 > password: 123456
 
 Please note that this is by no means a production ready app. It was just a simple project to demonstrate mastery of GraphQL and the Apollo Engine. It can also be used as seed project for more serious projects.
-
-Credits to [creativetimofficial](https://github.com/creativetimofficial/material-kit-react) for the UI. The sample images used were sourced on the internet.
 
 ## Thank you
