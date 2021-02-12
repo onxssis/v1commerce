@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import UserRepository from '@Repositories/User/UserRepository';
-import { APP_SECRET, hashPassword, isValidUnencryptedValue } from '~/utils';
+import { hashPassword, isValidUnencryptedValue } from '~/utils';
 import {
   AuthenticatedUser,
   HttpContextObject,
@@ -23,7 +23,7 @@ export default class UserService {
     };
 
     const user = await this.userRepository.create(userData);
-    const token = jwt.sign({ username: user.username }, APP_SECRET);
+    const token = jwt.sign({ username: user.username }, (process.env.APP_SECRET as string));
 
     return { user, token };
   }
@@ -42,7 +42,7 @@ export default class UserService {
       throw new Error('Invalid password');
     }
 
-    const token = jwt.sign({ userId: user.id }, APP_SECRET);
+    const token = jwt.sign({ userId: user.id }, (process.env.APP_SECRET as string));
 
     return { user, token };
   }
@@ -62,7 +62,7 @@ export default class UserService {
     const authorization = context.request.headers.authorization;
     if (authorization !== undefined) {
       const token = authorization.replace('Bearer ', '');
-      const { userId } = <JWTVerifyResponse>jwt.verify(token, APP_SECRET);
+      const { userId } = <JWTVerifyResponse>jwt.verify(token, (process.env.APP_SECRET as string));
       return userId;
     } else {
       throw new Error('Not authenticated');

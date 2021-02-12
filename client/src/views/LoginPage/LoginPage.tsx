@@ -74,8 +74,6 @@ const LoginPage = () => {
         body: JSON.stringify({ user, token }),
       });
 
-      console.log(userResponse, 'res');
-
       localStorage.setItem(AUTH_TOKEN, token);
 
       await mutateUser(userResponse);

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: client-deployment
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: client
@@ -13,7 +13,7 @@ spec:
         app: client
     spec:
       containers:
-        - name: client-image
+        - name: client
           image: v1commerce_client
           resources:
             limits:
@@ -22,3 +22,8 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
+          env:
+            - name: NODE_PATH
+              value: "/"
+            - name: APPLICATION_SECRET
+              value: 58t03r9er00-#@#

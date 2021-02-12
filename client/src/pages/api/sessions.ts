@@ -3,7 +3,7 @@ import { SessionOptions, withIronSession } from 'next-iron-session';
 export const ironSessionOptions: SessionOptions = {
   cookieName: 'MYSITECOOKIE',
   cookieOptions: {
-    secure: process.env.NODE_ENV === 'production' ? true : false,
+    secure: false,
   },
   password: process.env.APPLICATION_SECRET ?? '',
 };
@@ -19,7 +19,6 @@ const postRequestHandler = async (req: any, res: any) => {
       return res.json({ user: { ...userResponse, token }, isLoggedIn: true });
     }
   } catch (e) {
-    console.log('sessions', e);
     return res.status(403).send(e);
   }
 

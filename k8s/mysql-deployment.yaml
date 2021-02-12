@@ -33,4 +33,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysqlpassword
-                  key: password
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              value: v1commerce
