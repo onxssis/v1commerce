@@ -1,12 +1,14 @@
 sudo: required
 services:
   - docker
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
 
 before_install:
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip awscliv2.zip
   - sudo ./aws/install
-  - aws --version
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   - chmod +x ./kubectl
   - sudo mv ./kubectl /usr/local/bin/kubectl
@@ -16,5 +18,12 @@ before_install:
   - docker build -t onxssis/v1commerce-test -f ./client/Dockerfile.dev ./client
 
 script:
+  - aws --version
   - kubectl get svc
   - docker run -e CI=true onxssis/v1commerce-test yarn test
+
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master

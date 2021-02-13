@@ -19,7 +19,6 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500Mi"
-          imagePullPolicy: Never
           ports:
             - containerPort: 4000
           env:
