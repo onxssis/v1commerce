@@ -6,10 +6,5 @@ install:
   - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
 
 script:
-  - echo echoing config...
-  - cat ${HOME}/.kube/config
-  - echo raw echo...
-  - echo "$KUBE_CONFIG" | base64 --decode
-  - echo kube_config no decode...
-  - echo "$KUBE_CONFIG"
-  - echo done
+  - kubectl get svc
+  - kubectl get pods
