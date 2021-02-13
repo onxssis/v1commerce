@@ -26,15 +26,12 @@ spec:
               value: root
             - name: DB_DATABASE
               value: v1commerce
-            - name: DB_LOGGING
-              value: "true"
             - name: DB_SYNC
               value: "true"
             - name: APP_SECRET
               value: zxmn495it094lsfdhsdhf
             - name: DB_PASSWORD
-              value: stutord1
-              # valueFrom:
-              #   secretKeyRef:
-              #     name: dbpassword
-              #     key: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dbpassword
+                  key: DB_PASSWORD

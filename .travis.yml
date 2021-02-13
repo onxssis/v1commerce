@@ -18,8 +18,6 @@ before_install:
   - docker build -t onxssis/v1commerce-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - aws --version
-  - kubectl get svc
   - docker run -e CI=true onxssis/v1commerce-test yarn test
 
 deploy:
