@@ -6,4 +6,4 @@ install:
   - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
 
 script:
-  - cat ${HOME}/.kube/config
+  - echo "$KUBE_CONFIG" | base64 --decode
