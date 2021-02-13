@@ -6,4 +6,4 @@ install:
   - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
 
 script:
-  - kubectl get svc
+  - kubectl get pods
