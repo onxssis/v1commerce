@@ -27,7 +27,7 @@ spec:
               cpu: "500m"
           volumeMounts:
             - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
+              mountPath: /var/lib/mysqldata
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
