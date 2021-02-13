@@ -30,6 +30,16 @@ Parameters:
       - db.t3.small
       - db.t3.medium
 
+  RDSInstanceID:
+    Type: String
+    Default: dbinstance
+    Description: The Instance Identifier for the DB Instance
+
+  RDSMasterPassword:
+    Type: String
+    Default: stutord1
+    Description: The Master Password for the DB Instance
+
   RDSStorageType:
     Type: Number
     Default: 20
@@ -356,9 +366,8 @@ Resources:
     Type: "AWS::EKS::Cluster"
     Properties:
       Name: !Ref ClusterName
-      Version: 1.18
-      RoleArn:
-        "Fn::GetAtt": ["MyAmazonEKSClusterRole", "Arn"]
+      Version: "1.18"
+      RoleArn: !GetAtt MyAmazonEKSClusterRole.Arn
       ResourcesVpcConfig:
         SecurityGroupIds:
           - !Ref ControlPlaneSecurityGroup
@@ -381,8 +390,7 @@ Resources:
     Type: AWS::EKS::Nodegroup
     Properties:
       ClusterName: !Ref ClusterName
-      NodeRole:
-        "Fn::GetAtt": ["EKSNodeInstanceRole", "Arn"]
+      NodeRole: !GetAtt EKSNodeInstanceRole.Arn
       AmiType: AL2_x86_64
       InstanceTypes:
         - !Ref NodeInstanceType
@@ -399,6 +407,58 @@ Resources:
         - !Ref PrivateSubnet01
         - !Ref PrivateSubnet02
     DependsOn: [EKSCluster, EKSNodeInstanceRole]
+
+  MyDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: description
+      SubnetIds:
+        - !Ref PublicSubnet01,
+        - !Ref PublicSubnet02,
+        - !Ref PrivateSubnet01,
+        - !Ref PrivateSubnet02
+
+  # MyDBSecretKey:
+  #   Type: AWS::KMS::Key
+  #   Properties:
+  #     KeyPolicy:
+  #       Statement:
+  #         - Sid: "Enable IAM User Permissions"
+  #           Effect: "Allow"
+  #           Principal:
+  #             AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+  #           Action: "kms:*"
+  #           Resource: "*"
+
+  # MySQLSecret:
+  #   Type: AWS::SecretsManager::Secret
+  #   Properties:
+  #     KmsKeyId: !Ref MyDBSecretKey
+  #     GenerateSecretString:
+  #       SecretStringTemplate: !Join ["", ['{"username": "root"}']]
+  #       GenerateStringKey: "password"
+  #       PasswordLength: 16
+  #       ExcludeCharacters: '"@/\'
+
+  MyDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBSecurityGroups:
+        - !Ref ControlPlaneSecurityGroup
+      AllocatedStorage: !Ref RDSStorageType
+      DBInstanceClass: !Ref RDSInstanceType
+      Engine: MySQL
+      EngineVersion: "5.7.31"
+      MasterUsername: root
+      MasterUserPassword: !Ref RDSMasterPassword
+      DBName: !Ref ClusterName
+      DBInstanceIdentifier: !Ref RDSInstanceID
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+      PubliclyAccessible: True
+      MultiAZ: False
+      StorageType: gp2
+      VPCSecurityGroups:
+        - !Ref ControlPlaneSecurityGroup
 
 Outputs:
   SubnetIds:
@@ -421,3 +481,7 @@ Outputs:
   VpcId:
     Description: The VPC Id
     Value: !Ref VPC
+
+  RDSEndpoint:
+    Description: The Endpoint of the RDS Instance
+    Value: !GetAtt MyDBInstance.Endpoint.Address
