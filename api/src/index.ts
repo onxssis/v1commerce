@@ -18,6 +18,7 @@ const server = new GraphQLServer({
 });
 
 async function startServer() {
+  console.log(process.env);
   await createConnection();
   server.start(() => console.log(`API is running...`));
 }
