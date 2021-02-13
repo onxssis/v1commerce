@@ -33,7 +33,8 @@ spec:
             - name: APP_SECRET
               value: zxmn495it094lsfdhsdhf
             - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: dbpassword
-                  key: DB_PASSWORD
+              value: stutord1
+              # valueFrom:
+              #   secretKeyRef:
+              #     name: dbpassword
+              #     key: DB_PASSWORD
