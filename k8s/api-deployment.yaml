@@ -19,7 +19,10 @@ spec:
             - containerPort: 4000
           env:
             - name: DB_HOST
-              value: dbinstance.cotfal5vs7qh.eu-west-3.rds.amazonaws.com
+              valueFrom:
+                secretKeyRef:
+                  name: dbhost
+                  key: DB_HOST
             - name: DB_PORT
               value: "3306"
             - name: DB_USERNAME
