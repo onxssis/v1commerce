@@ -376,17 +376,15 @@ Resources:
           - !Ref PublicSubnet02
           - !Ref PrivateSubnet01
           - !Ref PrivateSubnet02
-      DependsOn:
-        [
-          MyAmazonEKSClusterRole,
-          PublicSubnet01,
-          PublicSubnet02,
-          PrivateSubnet01,
-          PrivateSubnet02,
-          ControlPlaneSecurityGroup,
-        ]
+    DependsOn:
+      - MyAmazonEKSClusterRole
+      - PublicSubnet01
+      - PublicSubnet02
+      - PrivateSubnet01
+      - PrivateSubnet02
+      - ControlPlaneSecurityGroup
 
-  EksNodeGroup:
+  EKSNodeGroup:
     Type: AWS::EKS::Nodegroup
     Properties:
       ClusterName: !Ref ClusterName
@@ -406,7 +404,9 @@ Resources:
         - !Ref PublicSubnet02
         - !Ref PrivateSubnet01
         - !Ref PrivateSubnet02
-    DependsOn: [EKSCluster, EKSNodeInstanceRole]
+    DependsOn:
+      - EKSCluster
+      - EKSNodeInstanceRole
 
   MyDBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
