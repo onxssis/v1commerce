@@ -328,6 +328,11 @@ Resources:
     Properties:
       GroupDescription: Cluster communication with worker nodes
       VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 0.0.0.0/0
 
   MyAmazonEKSClusterRole:
     Type: "AWS::IAM::Role"
