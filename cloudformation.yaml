@@ -443,8 +443,6 @@ Resources:
   MyDBInstance:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBSecurityGroups:
-        - !Ref ControlPlaneSecurityGroup
       AllocatedStorage: !Ref RDSStorageType
       DBInstanceClass: !Ref RDSInstanceType
       Engine: MySQL
