@@ -36,3 +36,5 @@ deploy:
     script: bash ./build.sh
     on:
       branch: master
+after_deploy:
+  - ./after_deploy.sh
