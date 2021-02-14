@@ -42,10 +42,10 @@ Parameters:
 
   RDSStorageType:
     Type: Number
-    Default: 20
+    Default: "20"
     Description: The amount of storage for the DB Instance
-    MinValue: 20
-    MaxValue: 50
+    MinValue: "20"
+    MaxValue: "50"
 
   PublicSubnet01Block:
     Type: String
@@ -70,22 +70,22 @@ Parameters:
   NodeAutoScalingGroupMinSize:
     Type: Number
     Description: Minimum size of Node Group ASG.
-    Default: 1
+    Default: "1"
 
   NodeAutoScalingGroupDesiredSize:
     Type: Number
     Description: Desired size of Node Group ASG.
-    Default: 2
+    Default: "2"
 
   NodeAutoScalingGroupMaxSize:
     Type: Number
     Description: Maximum size of Node Group ASG.
-    Default: 2
+    Default: "2"
 
   NodeGroupName:
     Description: Unique identifier for the Node Group.
     Type: String
-    Default: !Ref ClusterName
+    Default: v1commerce
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -372,10 +372,10 @@ Resources:
         SecurityGroupIds:
           - !Ref ControlPlaneSecurityGroup
         SubnetIds:
-          - !Ref PublicSubnet01,
-          - !Ref PublicSubnet02,
-          - !Ref PrivateSubnet01,
-          - !Ref PrivateSubnet02,
+          - !Ref PublicSubnet01
+          - !Ref PublicSubnet02
+          - !Ref PrivateSubnet01
+          - !Ref PrivateSubnet02
       DependsOn:
         [
           MyAmazonEKSClusterRole,
@@ -413,9 +413,9 @@ Resources:
     Properties:
       DBSubnetGroupDescription: description
       SubnetIds:
-        - !Ref PublicSubnet01,
-        - !Ref PublicSubnet02,
-        - !Ref PrivateSubnet01,
+        - !Ref PublicSubnet01
+        - !Ref PublicSubnet02
+        - !Ref PrivateSubnet01
         - !Ref PrivateSubnet02
 
   # MyDBSecretKey:
