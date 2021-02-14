@@ -21,15 +21,15 @@ script:
 
 deploy:
   - provider: cloudformation
-    access_key_id: ${AWS_ACCESS_KEY_ID}
-    secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
     template: cloudformation.yaml
     stack_name: v1commerce-eks-stack
     capabilities: CAPABILITY_NAMED_IAM
     region: eu-west-3
     edge: true
     parameters:
-      RDSMasterPassword: ${AWS_RDS_MASTER_PASSWORD}
+      RDSMasterPassword: $AWS_RDS_MASTER_PASSWORD
     output_file: cloudformation.output
     on:
       branch: master
