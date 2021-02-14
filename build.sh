@@ -15,6 +15,12 @@ docker push onxssis/v1commerce_api:latest
 docker push onxssis/v1commerce_client:$SHA
 docker push onxssis/v1commerce_api:$SHA
 
+if ! [ $(kubectl get secrets | grep 'dbpassword') ]; then
+  # do this if not already set
+  echo "Setting secret.."
+  kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$DB_PASSWORD
+fi
+
 echo "Applying K8s config..."
 
 kubectl apply -f k8s
