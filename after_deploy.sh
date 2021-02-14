@@ -7,19 +7,12 @@ echo "Setting Kube Vars..."
 
 if [[ $(cat $TRAVIS_BUILD_DIR/cloudformation.output) =~ RDSEndpoint=(.+.com) ]]; then
   echo ${BASH_REMATCH[1]}
-
-  if ! $(kubectl get secrets | grep -q 'dbhost'); then
-    # do this if not already set
-    echo "Setting DB Host.."
-    kubectl create secret generic dbhost --from-literal DB_HOST=${BASH_REMATCH[1]}
-  fi
+  kubectl delete secret dbhost --ignore-not-found
+  kubectl create secret generic dbhost --from-literal DB_HOST=${BASH_REMATCH[1]}
 fi
 
-if ! $(kubectl get secrets | grep -q 'dbpassword'); then
-  # do this if not already set
-  echo "Setting secret.."
-  kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$RDS_MASTER_PASSWORD
-fi
+kubectl delete secret dbpassword --ignore-not-found
+kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$RDS_MASTER_PASSWORD
 
 echo "Applying K8s config..."
 
