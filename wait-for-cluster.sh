@@ -4,10 +4,10 @@ started_date=$(date '+%H:%M:%S')
 start=$(date +%s)
 while true; do
   if [[ $(aws cloudformation describe-stacks --region $AWS_REGION --stack-name v1commerce-eks-stack --query "Stacks[*].StackStatus" --output text) == *"PROGRESS"* ]]; then
-    echo -e "EKS Cluster status : $(!!) \n"
+    echo -e "EKS Cluster status : $(aws cloudformation describe-stacks --region $AWS_REGION --stack-name v1commerce-eks-stack --query "Stacks[*].StackStatus" --output text) \n"
     sleep 10
   elif [[ $(aws cloudformation describe-stacks --region $AWS_REGION --stack-name v1commerce-eks-stack --query "Stacks[*].StackStatus" --output text) == *"COMPLETE"* ]]; then
-    echo -e "EKS Cluster status : $(!!) \n"
+    echo -e "EKS Cluster status : $(aws cloudformation describe-stacks --region $AWS_REGION --stack-name v1commerce-eks-stack --query "Stacks[*].StackStatus" --output text) \n"
     end=$(date +%s)
     runtime=$((end - start))
     finished_date=$(date '+%H:%M:%S')
