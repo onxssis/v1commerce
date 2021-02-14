@@ -5,7 +5,7 @@ kubectl get svc
 
 echo "Logging output file..."
 
-echo $(ls $TRAVIS_BUILD_DIR)
+echo $(cat $TRAVIS_BUILD_DIR/cloudformation.output)
 
 echo "END Logging output file..."
 
@@ -17,9 +17,9 @@ fi
 
 echo "Applying K8s config..."
 
-kubectl apply -f k8s
-# kubectl set image deployments/api-deployment api=onxssis/v1commerce_api:$SHA
-# kubectl set image deployments/client-deployment client=onxssis/v1commerce_client:$SHA
+# kubectl apply -f k8s
+# # kubectl set image deployments/api-deployment api=onxssis/v1commerce_api:$SHA
+# # kubectl set image deployments/client-deployment client=onxssis/v1commerce_client:$SHA
 
-echo "Applying Ingress config..."
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/aws/deploy.yaml
+# echo "Applying Ingress config..."
+# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/aws/deploy.yaml
