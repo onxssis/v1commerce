@@ -28,8 +28,7 @@ deploy:
     capabilities: CAPABILITY_NAMED_IAM
     region: eu-west-3
     edge: true
-    parameters:
-      - RDSMasterPassword: $RDS_MASTER_PASSWORD
+    parameters: RDSMasterPassword=$RDS_MASTER_PASSWORD
     output_file: cloudformation.output
     on:
       branch: master
