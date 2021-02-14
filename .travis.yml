@@ -37,4 +37,4 @@ deploy:
     on:
       branch: master
 after_deploy:
-  - ./after_deploy.sh
+  - bash ./after_deploy.sh
