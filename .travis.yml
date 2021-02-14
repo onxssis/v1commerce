@@ -15,7 +15,6 @@ before_install:
   - mkdir ${HOME}/.kube
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   - docker build -t onxssis/v1commerce-test -f ./client/Dockerfile.dev ./client
-  - chmod +x build.sh
 
 script:
   - docker run -e CI=true onxssis/v1commerce-test yarn test
@@ -32,6 +31,6 @@ deploy:
     on:
       branch: master
   - provider: script
-    script: bash ./wait-for-cluster.sh && ./build.sh
+    script: bash ./build.sh
     on:
       branch: master
