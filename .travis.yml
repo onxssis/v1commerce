@@ -29,7 +29,7 @@ deploy:
     region: eu-west-3
     edge: true
     parameters:
-      RDSMasterPassword: $AWS_RDS_MASTER_PASSWORD
+      RDSMasterPassword: $RDS_MASTER_PASSWORD
     output_file: cloudformation.output
     on:
       branch: master

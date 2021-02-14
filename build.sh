@@ -24,7 +24,7 @@ echo "END Logging output file..."
 if ! [ $(kubectl get secrets | grep 'dbpassword') ]; then
   # do this if not already set
   echo "Setting secret.."
-  kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$AWS_RDS_MASTER_PASSWORD
+  kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$RDS_MASTER_PASSWORD
 fi
 
 echo "Applying K8s config..."
