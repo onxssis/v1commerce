@@ -17,7 +17,7 @@ kubectl get svc
 
 echo "Logging output file..."
 
-echo $(ls)
+echo $(ls $TRAVIS_BUILD_DIR)
 
 echo "END Logging output file..."
 
