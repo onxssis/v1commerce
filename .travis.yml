@@ -20,7 +20,13 @@ script:
   - docker run -e CI=true onxssis/v1commerce-test yarn test
 
 deploy:
-  provider: script
-  script: bash ./deploy.sh && ./wait-for-cluster.sh && ./build.sh
+  provider: cloudformation
+  access_key_id: ${AWS_ACCESS_KEY_ID}
+  secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+  template: cloudformation.yaml
+  stack_name: v1commerce-eks-stack
+  capabilities: CAPABILITY_NAMED_IAM
+  region: eu-west-3
+  run: bash /wait-for-cluster.sh && ./build.sh
   on:
     branch: master
