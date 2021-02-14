@@ -24,8 +24,8 @@ fi
 echo "Applying K8s config..."
 
 kubectl apply -f k8s
-# kubectl set image deployments/api-deployment api=onxssis/v1commerce_api:$SHA
-# kubectl set image deployments/client-deployment client=onxssis/v1commerce_client:$SHA
+kubectl set image deployments/api-deployment api=onxssis/v1commerce_api:$SHA
+kubectl set image deployments/client-deployment client=onxssis/v1commerce_client:$SHA
 
 echo "Applying Ingress config..."
 
