@@ -341,8 +341,8 @@ Resources:
                 - eks.amazonaws.com
             Action:
               - "sts:AssumeRole"
-        ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 
   EKSNodeInstanceRole:
     Type: AWS::IAM::Role
