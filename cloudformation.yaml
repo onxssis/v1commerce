@@ -36,9 +36,12 @@ Parameters:
     Description: The Instance Identifier for the DB Instance
 
   RDSMasterPassword:
+    NoEcho: True
     Type: String
-    Default: stutord1
     Description: The Master Password for the DB Instance
+    MinLength: "1"
+    MaxLength: "41"
+    AllowedPattern: ^[a-zA-Z0-9]*$
 
   RDSStorageType:
     Type: Number

@@ -15,10 +15,16 @@ docker push onxssis/v1commerce_api:latest
 docker push onxssis/v1commerce_client:$SHA
 docker push onxssis/v1commerce_api:$SHA
 
+echo "Logging output file..."
+
+echo $(cat cloudformation.output)
+
+echo "END Logging output file..."
+
 if ! [ $(kubectl get secrets | grep 'dbpassword') ]; then
   # do this if not already set
   echo "Setting secret.."
-  kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$DB_PASSWORD
+  kubectl create secret generic dbpassword --from-literal DB_PASSWORD=$AWS_RDS_MASTER_PASSWORD
 fi
 
 echo "Applying K8s config..."
