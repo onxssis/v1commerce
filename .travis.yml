@@ -1,11 +1,10 @@
-sudo: required
 services:
   - docker
 env:
   global:
     - SHA=$(git rev-parse HEAD)
 
-before_install:
+install:
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip awscliv2.zip
   - sudo ./aws/install
@@ -33,8 +32,9 @@ deploy:
     on:
       branch: master
   - provider: script
-    script: bash ./build.sh
+    script: bash ./scripts/build.sh
     on:
       branch: master
+
 after_deploy:
-  - bash ./after_deploy.sh
+  - bash ./scripts/after_deploy.sh
